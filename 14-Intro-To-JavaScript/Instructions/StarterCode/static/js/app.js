@@ -1,11 +1,10 @@
 // from data.js
 var tableData = data;
 
-// YOUR CODE HERE!
-// select tbody using ds
+// select tbody 
 tbody = d3.select("tbody")
 
-// using Object.entries to get into key and value pairs of data inside of the table
+// using Object.entries to get key, value data inside of the table
 // and loop through them to add to the table in html
 function displayData(data){ 
     tbody.text("")
@@ -18,21 +17,21 @@ function displayData(data){
 
 displayData(tableData)
 
-var inputText = d3.select("#datetime")
+//select the web user's input and the filter button
+var dateInputText = d3.select("#datetime")
 var button = d3.select("filter-btn")
 
-// filter data with desired date
-function changeHandler(){
+// filter data with date that the user inputs
+function clickSelect(){
+    //don't refresh the page!
     d3.event.preventDefault();
-    console.log(inputText.property("value"));
-    var new_table = tableData.filter(sighting => sighting.datetime===inputText.property("value"))
-    displayData(new_table)
+    //print the value that was input
+    console.log(dateInputText.property("value"));
+    //create a new table showing only the filterd data
+    var new_table = tableData.filter(sighting => sighting.datetime===dateInputText.property("value"))
+    //display the new table
+    displayData(new_table);
 }
 
 // event listener to handle change and click
-inputText.on("change", changeHandler)
-button.on("click", changeHandler)
-
-
-
-
+dateInputText.on("change", clickSelect)
